@@ -31,4 +31,3 @@ Group by
 	`Sub-Category`
 Order by
 	Sum(Profit) desc;
-
