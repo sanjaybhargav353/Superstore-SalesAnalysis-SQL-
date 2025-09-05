@@ -33,7 +33,17 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\n'  
 IGNORE 1 ROWS; 
 
-
+LOAD DATA LOCAL INFILE '/Users/pookay/Desktop/Superstore-SalesAnalysis-SQL-/dataset/Sample - Superstore.txt' 
+INTO TABLE superstore
+CHARACTER SET utf8
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 ROWS
+(`Row ID`, `Order ID`, @order_date_var, @ship_date_var, `Ship Mode`, `Customer ID`, `Customer Name`, `Segment`, `Country/Region`, `City`, `State`, `Postal Code`, `Region`, `Product ID`, `Category`, `Sub-Category`, `Product Name`, `Sales`, `Quantity`, `Discount`, `Profit`)
+SET
+  `Order Date` = STR_TO_DATE(@order_date_var, '%m/%d/%Y'), 
+  `Ship Date` = STR_TO_DATE(@ship_date_var, '%m/%d/%Y'); 
 
 
 
