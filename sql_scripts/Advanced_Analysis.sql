@@ -66,28 +66,7 @@ Group by
 Order by
 	(sum(Profit) / sum(Sales))*100 desc
 limit 10;
--- Analysis of Month-over-Month (MoM) Profit Growth
-WITH MonthlyProfit AS (
-    SELECT
-        DATE_FORMAT(`Order Date`, '%Y-%m-01') AS sales_month,
-        SUM(Profit) AS total_profit
-    FROM
-        superstore
-    GROUP BY
-        sales_month
-    ORDER BY
-        sales_month
-)
-SELECT
-    sales_month,
-    CONCAT('₹', FORMAT(total_profit, 0)) AS monthly_profit,
-    -- Use LAG() to get the previous month's profit
-    CONCAT('₹', FORMAT(LAG(total_profit, 1) OVER (ORDER BY sales_month), 0)) AS previous_month_profit,
-    -- Calculate the percentage change
-    CONCAT(FORMAT((total_profit - LAG(total_profit, 1) OVER (ORDER BY sales_month)) / LAG(total_profit, 1) OVER (ORDER BY sales_month) * 100, 2), '%') AS mom_growth_pct
-FROM
-    MonthlyProfit;
-    
+
 -- Analysis of Month-over-Month (MoM) Profit Growth
 with MonthlyProfit AS (
 select
